@@ -14,12 +14,122 @@
  * 
  */
 
-exports.getJobs = function() {
-	var jobs = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJobs());
+exports.getJobs = function () {
+	let jobs = new Array();
+	let list = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJobs());
+	for (let i in list) {
+		let data = list[i];
+		let job = new Job(data);
+		jobs.push(job);
+	}
 	return jobs;
 };
 
-exports.getJob = function(name) {
-	var job = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJob(name));
+exports.getJob = function (name) {
+	let data = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJob(name));
+	let job = new Job(data);
 	return job;
 };
+
+/**
+ * Job object
+ */
+function Job(data) {
+
+	this.data = data;
+
+	this.getName = function () {
+		return data.name;
+	};
+
+	this.getGroup = function () {
+		return data.group;
+	};
+
+	this.getClazz = function () {
+		return data.clazz;
+	};
+
+	this.getDescription = function () {
+		return data.description;
+	};
+
+	this.getExpression = function () {
+		return data.expression;
+	};
+
+	this.getHandler = function () {
+		return data.handler;
+	};
+
+	this.getEngine = function () {
+		return data.engine;
+	};
+
+	this.getSingleton = function () {
+		return data.singleton;
+	};
+
+	this.getEnabled = function () {
+		return data.enabled;
+	};
+
+	this.getCreatedBy = function () {
+		return data.createdBy;
+	};
+
+	this.getCreatedAt = function () {
+		return data.createdAt;
+	};
+
+	this.getParameters = function () {
+		return new JobParameters(data.parameters);
+	};
+
+}
+
+/**
+ * Job Parameters object
+ */
+function JobParameters(data) {
+
+	this.data = data;
+
+	this.get = function (i) {
+		return new JobParameter(data[i]);
+	};
+
+	this.count = function () {
+		return data.length;
+	};
+
+}
+
+/**
+ * Job Parameter object
+ */
+function JobParameter(data) {
+
+	this.data = data;
+
+	this.getName = function () {
+		return data.name;
+	};
+
+	this.getDescription = function () {
+		return data.description;
+	};
+
+	this.getType = function () {
+		return data.type;
+	};
+
+	this.getDefaultValue = function () {
+		return data.defaultValue;
+	};
+
+	this.getChoices = function () {
+		return data.choices;
+	};
+
+}
