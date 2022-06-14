@@ -14,6 +14,8 @@
  * 
  */
 
+var configurations = require("core/v4/configurations");
+
 exports.getJobs = function () {
 	let jobs = new Array();
 	let list = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJobs());
@@ -29,6 +31,14 @@ exports.getJob = function (name) {
 	let data = JSON.parse(org.eclipse.dirigible.api.v3.job.JobFacade.getJob(name));
 	let job = new Job(data);
 	return job;
+};
+
+exports.getParameter = function (name) {
+	return configurations.get(name);
+};
+
+exports.setParameter = function (name, value) {
+	return configurations.set(name, value);
 };
 
 /**
