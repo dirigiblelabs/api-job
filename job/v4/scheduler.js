@@ -143,19 +143,19 @@ function Job(data) {
 		org.eclipse.dirigible.api.v3.job.JobFacade.trigger(this.getName(), JSON.stringify(parameters));
 	};
 
-	exports.log = function (message) {
+	this.log = function (message) {
 		org.eclipse.dirigible.api.v3.job.JobFacade.log(this.getName(), message);
 	};
 
-	exports.error = function (message) {
+	this.error = function (message) {
 		org.eclipse.dirigible.api.v3.job.JobFacade.error(this.getName(), message);
 	};
 
-	exports.warn = function (message) {
+	this.warn = function (message) {
 		org.eclipse.dirigible.api.v3.job.JobFacade.warn(this.getName(), message);
 	};
 
-	exports.info = function (message) {
+	this.info = function (message) {
 		org.eclipse.dirigible.api.v3.job.JobFacade.info(this.getName(), message);
 	};
 
